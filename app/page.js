@@ -64,6 +64,17 @@ const plans = billingPlans;
 const exampleText =
   '輕量、防曬、可折疊的女用遮陽帽。UPF50+，大帽沿，適合旅行、通勤、海邊與露營。';
 
+function isLikelyDirectImageUrl(url) {
+  if (!url) return false;
+
+  try {
+    const parsed = new URL(url);
+    return /\.(apng|avif|gif|jpe?g|png|webp)$/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
 export default function Home() {
   const [activeView, setActiveView] = useState('generator');
   const [customerName, setCustomerName] = useState('Demo Store');
@@ -580,9 +591,14 @@ function GeneratorView({
         </div>
 
         <div className="imagePreview">
-          {productImageUrl ? (
+          {isLikelyDirectImageUrl(productImageUrl) ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={productImageUrl} alt="Product preview" />
+          ) : productImageUrl ? (
+            <div>
+              <Image size={30} />
+              <span>商品頁連結已加入</span>
+            </div>
           ) : (
             <div>
               <Image size={30} />

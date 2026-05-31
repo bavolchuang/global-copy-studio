@@ -31,6 +31,17 @@ function isValidImageUrl(url) {
   }
 }
 
+function isLikelyDirectImageUrl(url) {
+  if (!url) return false;
+
+  try {
+    const parsed = new URL(url);
+    return /\.(apng|avif|gif|jpe?g|png|webp)$/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
 async function resolveApiKey(userId) {
   const fallbackKey = process.env.OPENAI_API_KEY;
   const supabase = getSupabaseClient();
@@ -161,11 +172,14 @@ ${brandTone || 'Premium and polished'}
 
 SEO / Hashtag Keywords:
 ${keywords || 'Not specified. Choose relevant localized keywords.'}
+
+Product Reference URL:
+${productImageUrl && !isLikelyDirectImageUrl(productImageUrl) ? productImageUrl : 'None'}
 `.trim(),
     },
   ];
 
-  if (productImageUrl) {
+  if (isLikelyDirectImageUrl(productImageUrl)) {
     content.push({
       type: 'image_url',
       image_url: {
