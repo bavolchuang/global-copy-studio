@@ -1,0 +1,647 @@
+:root {
+  --ink: #111827;
+  --muted: #667085;
+  --faint: #98a2b3;
+  --line: #d9e0e8;
+  --paper: #f5f7fb;
+  --panel: #ffffff;
+  --nav: #0f172a;
+  --nav-soft: #172033;
+  --accent: #2563eb;
+  --accent-dark: #1d4ed8;
+  --mint: #14b8a6;
+  --gold: #f59e0b;
+  --rose: #f43f5e;
+  --danger: #b42318;
+  --shadow: 0 24px 70px rgba(15, 23, 42, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.08), transparent 34%),
+    linear-gradient(225deg, rgba(20, 184, 166, 0.10), transparent 30%),
+    var(--paper);
+  color: var(--ink);
+  font-family: Inter, Arial, "Noto Sans TC", "PingFang TC", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 292px minmax(0, 1fr);
+}
+
+.navRail {
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--nav);
+  color: #f8fafc;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: #aab7ca;
+  font-size: 13px;
+}
+
+.mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--nav);
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.navList {
+  display: grid;
+  gap: 8px;
+}
+
+.navItem {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: transparent;
+  color: #cbd5e1;
+  font-weight: 750;
+  text-align: left;
+}
+
+.navItem:hover,
+.navItem.active {
+  background: var(--nav-soft);
+  color: #fff;
+}
+
+.navItem.active {
+  box-shadow: inset 3px 0 0 var(--mint);
+}
+
+.usageBox {
+  margin-top: 30px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.usageTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.usageTop span {
+  color: #e2e8f0;
+  font-weight: 800;
+}
+
+.usageTop strong {
+  font-size: 30px;
+}
+
+.usageTrack {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.usageTrack div {
+  height: 100%;
+  background: var(--gold);
+}
+
+.usageBox p {
+  margin: 10px 0 0;
+  color: #aab7ca;
+  font-size: 13px;
+}
+
+.workspace {
+  padding: 32px;
+  overflow: auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.topbar h2 {
+  margin: 4px 0 0;
+  font-size: 31px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.topbarActions,
+.resultActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.primaryButton,
+.ghostButton {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px;
+  border-radius: 8px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.primaryButton {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+}
+
+.primaryButton:hover {
+  background: var(--accent-dark);
+}
+
+.ghostButton {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+}
+
+.ghostButton:hover {
+  border-color: #b9c5d3;
+  background: #fff;
+}
+
+.wide {
+  width: 100%;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.notice {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid #bfe5dc;
+  border-radius: 8px;
+  background: #ecfdf7;
+  color: #0f766e;
+  font-weight: 800;
+}
+
+.notice.error {
+  border-color: #fecdd3;
+  background: #fff1f2;
+  color: var(--danger);
+}
+
+.generatorGrid {
+  display: grid;
+  grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.panel,
+.copyCard,
+.planCard {
+  border: 1px solid rgba(217, 224, 232, 0.92);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.formPanel,
+.resultPanel,
+.settingsPanel,
+.emptyState,
+.billingSummary {
+  padding: 24px;
+}
+
+.sectionTitle {
+  margin-bottom: 18px;
+}
+
+.sectionTitle h3,
+.resultHeader h3,
+.emptyState h3,
+.billingSummary h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.sectionTitle p,
+.resultHeader p,
+.emptyState p,
+.billingSummary p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.formPanel {
+  display: grid;
+  gap: 16px;
+}
+
+.imagePreview {
+  height: 184px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.13), transparent 42%),
+    linear-gradient(225deg, rgba(244, 63, 94, 0.12), transparent 46%),
+    #f8fafc;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.imagePreview div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  color: var(--faint);
+  font-weight: 800;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 850;
+  font-size: 14px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 12px 13px;
+  outline: none;
+}
+
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.11);
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.resultHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.output {
+  width: 100%;
+  min-height: 595px;
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdff;
+  color: var(--ink);
+  white-space: pre-wrap;
+  line-height: 1.68;
+  overflow: auto;
+}
+
+.empty {
+  color: var(--muted);
+}
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+.copyCard {
+  padding: 18px;
+}
+
+.copyMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.copyMeta strong {
+  font-size: 16px;
+}
+
+.copyMeta span,
+.copyCard p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.copyCard pre {
+  max-height: 300px;
+  margin: 14px 0;
+  padding: 14px;
+  overflow: auto;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  background: #f8fafc;
+  white-space: pre-wrap;
+  line-height: 1.58;
+}
+
+.billingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.planCard {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.planCard.selected {
+  border-color: var(--accent);
+  box-shadow: 0 24px 70px rgba(37, 99, 235, 0.16);
+}
+
+.planTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.planTop h3,
+.planTop strong {
+  margin: 0;
+  font-size: 20px;
+}
+
+.planTop strong {
+  color: var(--accent);
+}
+
+.planCard p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.planCard ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink);
+}
+
+.planCard li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.planCard li svg {
+  color: var(--mint);
+  flex: 0 0 auto;
+}
+
+.billingSummary {
+  grid-column: 1 / -1;
+}
+
+.settingsPanel {
+  max-width: 720px;
+  display: grid;
+  gap: 16px;
+}
+
+.authStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.authStatus.signedIn {
+  border-color: #bfe5dc;
+  background: #ecfdf7;
+}
+
+.authStatus span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.settingsActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.legalPage {
+  min-height: 100vh;
+  padding: 48px 24px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.08), transparent 34%),
+    linear-gradient(225deg, rgba(20, 184, 166, 0.10), transparent 30%),
+    var(--paper);
+}
+
+.legalPanel {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.legalPanel h1 {
+  margin: 4px 0 20px;
+  font-size: 34px;
+  letter-spacing: 0;
+}
+
+.legalPanel h2 {
+  margin: 26px 0 8px;
+  font-size: 18px;
+}
+
+.legalPanel p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 1040px) {
+  .shell,
+  .generatorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navRail {
+    min-height: auto;
+  }
+
+  .navList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .billingGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .workspace,
+  .navRail {
+    padding: 18px;
+  }
+
+  .topbar,
+  .resultHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topbar h2 {
+    font-size: 25px;
+  }
+
+  .topbarActions,
+  .resultActions,
+  .twoCols,
+  .navList {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .topbarActions,
+  .resultActions {
+    flex-direction: column;
+  }
+
+  .topbarActions button,
+  .resultActions button {
+    width: 100%;
+  }
+
+  .output {
+    min-height: 420px;
+  }
+}

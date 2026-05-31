@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Global Copy Studio</title>
+    <style>
+      :root {
+        --ink: #111827;
+        --muted: #667085;
+        --line: #d9e0e8;
+        --paper: #f5f7fb;
+        --panel: #ffffff;
+        --nav: #0f172a;
+        --accent: #2563eb;
+        --accent-dark: #1d4ed8;
+        --mint: #14b8a6;
+        --gold: #f59e0b;
+        --shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(135deg, rgba(37, 99, 235, 0.1), transparent 34%),
+          linear-gradient(225deg, rgba(20, 184, 166, 0.12), transparent 32%),
+          var(--paper);
+        color: var(--ink);
+        font-family: Inter, Arial, "Noto Sans TC", "PingFang TC", sans-serif;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 292px minmax(0, 1fr);
+      }
+
+      .nav {
+        padding: 24px;
+        background: var(--nav);
+        color: #f8fafc;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+
+      .mark {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #fff;
+        color: var(--nav);
+        font-weight: 900;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .brand h1 {
+        margin-bottom: 4px;
+        font-size: 19px;
+      }
+
+      .brand p,
+      .usage p {
+        margin-bottom: 0;
+        color: #aab7ca;
+        font-size: 13px;
+      }
+
+      .nav button {
+        width: 100%;
+        min-height: 46px;
+        margin-bottom: 8px;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: #cbd5e1;
+        font-weight: 800;
+        text-align: left;
+      }
+
+      .nav button.active {
+        background: #172033;
+        color: #fff;
+        box-shadow: inset 3px 0 0 var(--mint);
+      }
+
+      .usage {
+        margin-top: 30px;
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .usageTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .usageTop strong {
+        font-size: 30px;
+      }
+
+      .track {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .track span {
+        display: block;
+        width: 38%;
+        height: 100%;
+        background: var(--gold);
+      }
+
+      .workspace {
+        padding: 32px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        margin-bottom: 4px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .topbar h2 {
+        margin-bottom: 0;
+        font-size: 31px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-weight: 850;
+      }
+
+      .btn.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
+        gap: 20px;
+        align-items: start;
+      }
+
+      .panel {
+        padding: 24px;
+        border: 1px solid rgba(217, 224, 232, 0.92);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow);
+      }
+
+      .panel h3 {
+        margin-bottom: 7px;
+        font-size: 18px;
+      }
+
+      .panel p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .preview {
+        height: 184px;
+        margin: 18px 0;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(37, 99, 235, 0.14), transparent 45%),
+          linear-gradient(225deg, rgba(244, 63, 94, 0.12), transparent 45%),
+          #f8fafc;
+        color: #98a2b3;
+        font-weight: 900;
+      }
+
+      label {
+        display: block;
+        margin: 14px 0 8px;
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      textarea,
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        padding: 12px 13px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .output {
+        min-height: 595px;
+        margin-top: 16px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdff;
+        white-space: pre-wrap;
+        line-height: 1.68;
+      }
+
+      .marketStrip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .marketStrip span {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 850;
+        text-align: center;
+      }
+
+      @media (max-width: 980px) {
+        .shell,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="nav">
+        <div class="brand">
+          <div class="mark">AI</div>
+          <div>
+            <h1>Global Copy Studio</h1>
+            <p>Demo Store</p>
+          </div>
+        </div>
+        <button class="active">✦ 生成器</button>
+        <button>▣ 文案庫</button>
+        <button>◇ 方案與額度</button>
+        <button>⚙ 設定</button>
+        <section class="usage">
+          <div class="usageTop">
+            <span>Free Trial</span>
+            <strong>3</strong>
+          </div>
+          <div class="track"><span></span></div>
+          <p>本期剩餘生成次數</p>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Cross-border Social Copy</p>
+            <h2>產生在地化社群文案</h2>
+          </div>
+          <div class="actions">
+            <button class="btn">載入範例</button>
+            <button class="btn primary">新增文案</button>
+          </div>
+        </header>
+
+        <div class="marketStrip">
+          <span>繁中 TW</span>
+          <span>English US</span>
+          <span>日本 JP</span>
+          <span>한국 KR</span>
+          <span>Deutsch DE</span>
+          <span>Français FR</span>
+          <span>Español ES</span>
+          <span>ไทย TH</span>
+        </div>
+
+        <div class="grid">
+          <section class="panel">
+            <h3>✦ 產品輸入</h3>
+            <p>支援 8 國語言、10 種平台、客群、行銷目標、品牌語氣與 SEO 關鍵字。</p>
+            <div class="preview">產品圖片預覽</div>
+
+            <label>產品描述</label>
+            <textarea>輕量、防曬、可折疊的女用遮陽帽。UPF50+，大帽沿，適合旅行、通勤、海邊與露營。</textarea>
+
+            <label>產品圖片 URL</label>
+            <input placeholder="https://example.com/product.jpg" />
+
+            <div class="two">
+              <div>
+                <label>目標國家／語言</label>
+                <select>
+                  <option>Traditional Chinese (TW)</option>
+                  <option>English (US)</option>
+                  <option>Japanese (JP)</option>
+                  <option>Korean (KR)</option>
+                  <option>German (DE)</option>
+                  <option>French (FR)</option>
+                  <option>Spanish (ES)</option>
+                  <option>Thai (TH)</option>
+                </select>
+              </div>
+              <div>
+                <label>目標平台</label>
+                <select>
+                  <option>Instagram</option>
+                  <option>TikTok</option>
+                  <option>Pinterest</option>
+                  <option>Facebook</option>
+                  <option>X</option>
+                  <option>YouTube Shorts</option>
+                  <option>Shopify Product Page</option>
+                  <option>Amazon Listing</option>
+                  <option>Etsy</option>
+                  <option>Email Campaign</option>
+                </select>
+              </div>
+            </div>
+
+            <label>目標客群</label>
+            <input value="25-40 歲重視防曬、旅行與穿搭質感的女性消費者" />
+
+            <div class="two">
+              <div>
+                <label>行銷目標</label>
+                <select>
+                  <option>Drive seasonal sales</option>
+                  <option>Increase conversion</option>
+                  <option>Launch new product</option>
+                  <option>Build brand awareness</option>
+                  <option>Retarget warm shoppers</option>
+                </select>
+              </div>
+              <div>
+                <label>品牌語氣</label>
+                <select>
+                  <option>Friendly influencer</option>
+                  <option>Premium and polished</option>
+                  <option>Bold and direct</option>
+                  <option>Minimal and elegant</option>
+                  <option>Youthful and trendy</option>
+                </select>
+              </div>
+            </div>
+
+            <label>SEO / Hashtag 關鍵字</label>
+            <input value="UPF50+, 防曬帽, 旅行好物, 高CP值" />
+
+            <p></p>
+            <button class="btn primary" style="width: 100%">生成 3 種文案</button>
+          </section>
+
+          <section class="panel">
+            <h3>生成結果</h3>
+            <p>三種文案風格會依照市場文化、平台演算法和購買心理調整。</p>
+            <div class="output">1. [Vibe & Hook]
+夏天神帽來了 ☀️
+
+出門不用再怕曬到崩潰，大帽沿 + UPF50+ 防曬，通勤、旅行、海邊都能直接戴上走。
+
+#防曬穿搭 #夏日必備 #高CP值 #IG好物
+
+2. [Pain Point & Solution]
+[太陽太毒] [臉容易曬黑] [帽子不好收]
+
+這頂可折疊防曬帽就是懶人救星。輕量好帶、帽沿夠大，放包包也不佔空間。
+
+現在不入手，夏天真的會後悔。
+
+#防曬帽 #旅行好物 #戶外穿搭 #台灣女生必備
+
+3. [Specs, Value & Trust]
+- UPF50+ 防曬設計
+- 可折疊收納，適合旅行與日常通勤
+- 輕量材質，長時間配戴也舒服
+- 大帽沿提升臉部與頸部遮蔽
+
+#機能穿搭 #防曬推薦 #高CP值好物 #InstagramShop</div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
